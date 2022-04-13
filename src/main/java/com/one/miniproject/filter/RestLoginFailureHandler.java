@@ -17,12 +17,6 @@ public class RestLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException{
 
-        System.out.println("Check");
-        System.out.println("Check");
-        System.out.println("Check");
-        System.out.println("Check");
-
-
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
 
@@ -34,8 +28,6 @@ public class RestLoginFailureHandler implements AuthenticationFailureHandler {
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(out, responseDto);
         out.flush();
     }
-
-
 
 
 }

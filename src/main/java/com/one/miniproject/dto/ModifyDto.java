@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class modifyDto {
+public class ModifyDto {
     private long postid;
     private String title;
     private String content;

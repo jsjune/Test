@@ -42,17 +42,17 @@ public class UserService {
 
     }
 
-    public ResponseDto login(SignUpRequestDto requestDto) {
-        Boolean result = false;
-        Optional<User> found = userRepository.findByUsername(requestDto.getUsername());
-        User user = userRepository.findByUsername(requestDto.getUsername()).orElse(null);
-        if (found.isPresent() && passwordEncoder.matches(requestDto.getPassword(), found.get().getPassword())) {
-            result = true;
-            return new ResponseDto(user.getNickname(), result);
-        } else {
-            return new ResponseDto(result);
-        }
-    }
+//    public ResponseDto login(SignUpRequestDto requestDto) {
+//        Boolean result = false;
+//        Optional<User> found = userRepository.findByUsername(requestDto.getUsername());
+//        User user = userRepository.findByUsername(requestDto.getUsername()).orElse(null);
+//        if (found.isPresent() && passwordEncoder.matches(requestDto.getPassword(), found.get().getPassword())) {
+//            result = true;
+//            return new ResponseDto(user.getNickname(), result);
+//        } else {
+//            return new ResponseDto(result);
+//        }
+//    }
 
 
     public ResponseDto nicknameCheck(SignUpRequestDto requestDto) {

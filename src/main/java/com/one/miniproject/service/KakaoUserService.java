@@ -111,7 +111,7 @@ public class KakaoUserService {
         String nickname = "";
 
         if(userCheck != null){
-            nickname = userCheck.getNickname()+ "변경완료";
+            nickname = userCheck.getNickname();
         } else {
             nickname = null;
         }

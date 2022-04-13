@@ -29,7 +29,6 @@ public class RestUsernamePasswordAuthenticationFilter extends UsernamePasswordAu
                 e.printStackTrace();
                 throw new AuthenticationServiceException("Json parsing에 실패했습니다.");
             }
-            String a = request.getParameter("username");
         } else{
             String username = obtainUsername(request);
             String password = obtainPassword(request);

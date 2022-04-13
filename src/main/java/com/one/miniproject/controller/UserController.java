@@ -4,12 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.one.miniproject.dto.KakaoTokenDto;
 import com.one.miniproject.dto.ResponseDto;
 import com.one.miniproject.dto.SignUpRequestDto;
-import com.one.miniproject.security.UserDetailsImpl;
 import com.one.miniproject.service.KakaoUserService;
 import com.one.miniproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
@@ -41,5 +41,5 @@ public class UserController {
         // authorizedCode: 카카오 서버로부터 받은 인가 코드
         return kakaoUserService.kakaoLogin(kakaoTokenDto.getCode());
     }
-
+    
 }

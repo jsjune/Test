@@ -29,4 +29,8 @@ public class ResponseDto {
         this.nickname = nickname;
         this.result = result;
     }
+
+    public ResponseDto(String nickname) {
+        this.nickname = nickname;
+    }
 }
