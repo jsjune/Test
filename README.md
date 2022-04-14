@@ -1,5 +1,13 @@
 ### 와이어프레임 및 기능 설계
 
+# 미니 프로젝트- 애견운동장 리뷰
+
+### 프로젝트 소개
+
+애견 운동장/카페 등을 사진, 별점, 좋아요 기능들로 리뷰하는 사이트 입니다.
+
+<br><br><br>
+
 로그인
 
 ![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f8329117-0d50-4247-916c-a5508e534ad5/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220414%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220414T082718Z&X-Amz-Expires=86400&X-Amz-Signature=c045afb08bc9f49f14cb3b8cbc5728decc9222b16879b44bdaab232b2be10223&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
