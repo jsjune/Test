@@ -24,7 +24,7 @@ public class GoodService {
         Long postid = goodDto.getPostid();
         String username = goodDto.getUsername();
 
-        Good good = goodRepository.findByPostidAndAndUsername(postid,username).orElse(null);
+        Good good = goodRepository.findByPostidAndUsername(postid,username).orElse(null);
 
         try {
             if(good == null)

@@ -16,16 +16,14 @@ public class CommentController {
     private final CommentService commentService;
 
     // 해당 게시글에 따라 댓글 리스트 조회
-    @GetMapping("/api/posts/comment/{postid}")
-    public List<CommentsResponseDto> comments(@PathVariable Long postid){
-
+    @GetMapping("/api/posts/comment")
+    public List<CommentsResponseDto> comments(@RequestParam Long postid){
         return commentService.comments(postid);
     }
 
     // 댓글 등록
     @PostMapping("api/posts/comment")
     public ResponseDto createComment(@RequestBody CommentDto commentDto){
-
         return commentService.createCommnet(commentDto);
     }
 

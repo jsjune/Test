@@ -1,6 +1,7 @@
 package com.one.miniproject.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.one.miniproject.dto.KakaoResponseDto;
 import com.one.miniproject.dto.KakaoTokenDto;
 import com.one.miniproject.dto.ResponseDto;
 import com.one.miniproject.dto.SignUpRequestDto;
@@ -37,9 +38,9 @@ public class UserController {
 
     // 카카오 로그인 인증 코드 전달
     @PostMapping("/user/kakao/callback")
-    public ResponseDto kakaoLogin(@RequestBody KakaoTokenDto kakaoTokenDto) throws JsonProcessingException {
+    public KakaoResponseDto kakaoLogin(@RequestBody KakaoTokenDto kakaoTokenDto) throws JsonProcessingException {
         // authorizedCode: 카카오 서버로부터 받은 인가 코드
         return kakaoUserService.kakaoLogin(kakaoTokenDto.getCode());
     }
-    
+
 }

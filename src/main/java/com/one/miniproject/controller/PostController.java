@@ -13,16 +13,16 @@ import java.util.List;
 @CrossOrigin
 @EnableJpaAuditing
 @RestController
-public class postController {
+public class PostController {
 
     private final PostService postService;
-    public postController(PostService postService) {
+    public PostController(PostService postService) {
         this.postService = postService;
     }
 
-    @GetMapping("/api/posts/{page}")
-    public List<GetPostDto> postDtoList(@PathVariable("page") Integer pageid){
-        return postService.postDtoList(pageid);
+    @GetMapping("/api/posts")
+    public List<GetPostDto> postDtoList(@RequestParam("page") Integer pageid, @RequestParam("username")String username){
+        return postService.postDtoList(pageid,username);
     }
 
     @PostMapping("/api/posts")
@@ -31,9 +31,9 @@ public class postController {
     }
 
     @Transactional
-    @PutMapping("/api/posts/{postId}")
-    public void modifypost(@PathVariable("postId") Integer pid,@RequestParam("images") MultipartFile[] multipartFile, ModifyDto modifyDto)throws IOException{
-        postService.modifypost(pid, multipartFile, modifyDto);
+    @PutMapping("/api/posts")
+    public void modifypost(@RequestBody ModifyDto modifyDto)throws IOException{
+        postService.modifypost(modifyDto);
     }
 
     @Transactional
@@ -42,8 +42,8 @@ public class postController {
         return postService.deletepost(pid);
     }
 
-    @GetMapping("/api/posts/detail/{postid}/{username}")
-    public DetailDto detailpost(@PathVariable("postid") long pid, @PathVariable("username") String name){
+    @GetMapping("/api/posts/detail")
+    public DetailDto detailpost(@RequestParam("postid") long pid, @RequestParam("username") String name){
         return postService.detailpost(pid,name);
     }
 

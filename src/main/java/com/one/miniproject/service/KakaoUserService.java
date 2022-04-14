@@ -3,6 +3,7 @@ package com.one.miniproject.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.one.miniproject.dto.KakaoResponseDto;
 import com.one.miniproject.dto.KakaoUserInfoDto;
 import com.one.miniproject.dto.ResponseDto;
 import com.one.miniproject.model.User;
@@ -32,7 +33,7 @@ public class KakaoUserService {
     private final UserRepository userRepository;
 
 
-    public ResponseDto kakaoLogin(String code) throws JsonProcessingException {
+    public KakaoResponseDto kakaoLogin(String code) throws JsonProcessingException {
         // 1. "인가 코드"로 "액세스 토큰" 요청
         String accessToken = getAccessToken(code);
 
@@ -44,9 +45,10 @@ public class KakaoUserService {
         // 4. 강제 로그인 처리
         forceLogin(kakaoUser);
 
-        ResponseDto responseDto = new ResponseDto();
+        KakaoResponseDto responseDto = new KakaoResponseDto();
         responseDto.setResult(true);
         responseDto.setNickname(kakaoUserInfo.getNickname());
+        responseDto.setUsername(kakaoUserInfo.getUsername());
 
         return responseDto;
 
@@ -60,10 +62,10 @@ public class KakaoUserService {
 // HTTP Body 생성
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
-        body.add("client_id", "25fab08c36688c7b50ea91aa4c488d68");
-        //body.add("client_id", "3d433ae3100be5ad2d51f82583a2330b");  // 리액트
-        //body.add("redirect_uri", "http://localhost:3000/user/kakao/callback"); // 리액트
-        body.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
+//        body.add("client_id", "25fab08c36688c7b50ea91aa4c488d68");
+        body.add("client_id", "3d433ae3100be5ad2d51f82583a2330b"); // 리액트
+        body.add("redirect_uri", "http://localhost:3000/user/kakao/callback"); // 리액트
+//        body.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
         body.add("code", code);
 
 // HTTP 요청 보내기

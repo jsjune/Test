@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PostService {
@@ -35,8 +32,10 @@ public class PostService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public List<GetPostDto> postDtoList(Integer pageid){
+    public List<GetPostDto> postDtoList(Integer pageid,String username){
         List<Post> posts=postRepository.findAll();
+
+
         List<GetPostDto> getPostDtos=new ArrayList<>();
         for(Post p:posts){
             GetPostDto tmp=new GetPostDto();
@@ -45,6 +44,15 @@ public class PostService {
             tmp.setTitle(p.getTitle());
             tmp.setCreatedAt(p.getCreatedAt());
             tmp.setStar(p.getStar());
+
+            Good good = goodRepository.findByPostidAndUsername(p.getPostid(),username).orElse(null);
+            tmp.setNickname(p.getUser().getNickname());
+            if (good == null) {
+                tmp.setHeart(false);
+            } else {
+                tmp.setHeart(true);
+            }
+
             List<Image> a=imageRepository.findAllByPostid(p.getPostid());
             String[] myar=new String[a.size()];
             for(int i=0;i<a.size();i++)
@@ -75,11 +83,15 @@ public class PostService {
         post.setUser(user);
         int leng= multipartFile.length;
         long imagepid=postRepository.save(post).getPostid();
-        for(int i=0;i<leng;i++) {
-            Image image=new Image();
-            image.setImageSrc(s3Uploader.upload(multipartFile[i], "static"));
-            image.setPostid(imagepid);
-            imageRepository.save(image);
+        try {
+            for (int i = 0; i < leng; i++) {
+                Image image = new Image();
+                image.setImageSrc(s3Uploader.upload(multipartFile[i], "static"));
+                image.setPostid(imagepid);
+                imageRepository.save(image);
+            }
+        } catch (Exception e) {
+            System.out.println("이미지 없음");
         }
         post.setPostid(imagepid);
         ResponseDto responseDto=new ResponseDto();
@@ -88,7 +100,10 @@ public class PostService {
         return responseDto;
     }
 
-    public void modifypost(Integer pid, MultipartFile[] multipartFile, ModifyDto modifyDto)throws IOException{
+
+
+    public void modifypost(ModifyDto modifyDto)throws IOException{
+        System.out.println(modifyDto.toString());
         Post post=new Post();
         post.setPostid(modifyDto.getPostid());
         post.setContent(modifyDto.getContent());
@@ -101,14 +116,14 @@ public class PostService {
         Post post2=post1.get();
         post.setCreatedAt(post2.getCreatedAt());
         postRepository.save(post);
-        imageRepository.deleteAllByPostid(modifyDto.getPostid());
-        int leng= multipartFile.length;;
-        for(int i=0;i<leng;i++) {
-            Image image=new Image();
-            image.setImageSrc(s3Uploader.upload(multipartFile[i], "static"));
-            image.setPostid(modifyDto.getPostid());
-            imageRepository.save(image);
-        }
+//        imageRepository.deleteAllByPostid(modifyDto.getPostid());
+//        int leng= multipartFile.length;;
+//        for(int i=0;i<leng;i++) {
+//            Image image=new Image();
+//            image.setImageSrc(s3Uploader.upload(multipartFile[i], "static"));
+//            image.setPostid(modifyDto.getPostid());
+//            imageRepository.save(image);
+//        }
     }
 
     @Transactional
@@ -151,5 +166,6 @@ public class PostService {
         }
         return result;
     }
+
 
 }

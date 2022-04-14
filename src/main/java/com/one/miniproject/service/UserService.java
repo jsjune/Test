@@ -24,13 +24,18 @@ public class UserService {
         String username = requestDto.getUsername();
         String nickname = requestDto.getNickname();
 
-        Optional<User> found = userRepository.findByUsername(username);
+        Optional<User> foundname = userRepository.findByUsername(username);
+        Optional<User> foundnickname = userRepository.findByNickname(nickname);
 
-        if (found.isPresent()) {
+        if (foundname.isPresent()) {
             err_msg = "중복된 ID가 존재합니다.";
             result = false;
             return new ResponseDto(result, err_msg, nickname);
-//            throw new IllegalArgumentException("중복된 ID 존재");
+        }
+        if (foundnickname.isPresent()) {
+            err_msg = "중복된 닉네임이 존재합니다";
+            result = false;
+            return new ResponseDto(result, err_msg, nickname);
         }
         String password = passwordEncoder.encode(requestDto.getPassword());
 
@@ -69,7 +74,7 @@ public class UserService {
                 selectUser.setNickname(nickname);
                 userRepository.save(selectUser);
             });
-            return new ResponseDto(result);
+            return new ResponseDto(requestDto.getNickname(),result);
         }
     }
 }

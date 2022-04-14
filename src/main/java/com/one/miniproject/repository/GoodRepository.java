@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GoodRepository extends JpaRepository<Good, Long> {
-    Optional<Good> findByPostidAndAndUsername(Long postid, String username);
+    Optional<Good> findByPostidAndUsername(Long postid, String username);
     List<Good> findAllByPostid(long pid);
     List<Good> findAllByPostidAndUsername(long pid,String name);
 

@@ -11,4 +11,15 @@ public class ModifyDto {
     private String content;
     private int star;
     private String username;
+
+    @Override
+    public String toString() {
+        return "ModifyDto{" +
+                "postid=" + postid +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", star=" + star +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

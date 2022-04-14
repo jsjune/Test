@@ -16,10 +16,11 @@ public class GetPostDto {
     private String title;
     private String content;
     private String[] imageSrc;
+    private Boolean heart;
     @CreatedDate
     private LocalDateTime createdAt;
     private int good;
     private int star;
 
-
+    private String nickname;
 }
